@@ -518,19 +518,55 @@
     const formError = document.getElementById('form-error');
     const formSuccess = document.getElementById('form-success');
 
+    function showError(msg) {
+      formError.textContent = msg;
+      formError.style.display = 'block';
+    }
+
+    function validatePhone(val) {
+      // Israeli mobile: 05X-XXXXXXX or 05XXXXXXXXX — exactly 10 digits starting with 05
+      const digits = val.replace(/[-\s]/g, '');
+      return /^05\d{8}$/.test(digits);
+    }
+
+    function validateEmail(val) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    }
+
+    function setFieldError(id, hasError) {
+      const el = document.getElementById(id);
+      el.style.borderColor = hasError ? 'var(--red)' : '';
+    }
+
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       formError.style.display = 'none';
 
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
       const availability = document.getElementById('availability').value;
 
-      if (!name || !phone || !availability) {
-        formError.textContent = 'נא למלא את כל השדות החובה';
-        formError.style.display = 'block';
-        return;
+      // Reset field highlights
+      ['name', 'phone', 'email'].forEach(id => setFieldError(id, false));
+
+      let valid = true;
+
+      if (!name) {
+        setFieldError('name', true);
+        showError('נא להזין שם מלא');
+        valid = false;
+      } else if (!validatePhone(phone)) {
+        setFieldError('phone', true);
+        showError('מספר הנייד אינו תקין — יש להזין 10 ספרות המתחילות ב-05 (לדוגמה: 0521234567)');
+        valid = false;
+      } else if (email && !validateEmail(email)) {
+        setFieldError('email', true);
+        showError('כתובת המייל אינה תקינה — יש להזין כתובת בפורמט name@example.com');
+        valid = false;
       }
+
+      if (!valid) return;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'שולח...';
@@ -550,11 +586,18 @@
           throw new Error('server error');
         }
       } catch {
-        formError.textContent = 'משהו השתבש, נסה שוב';
-        formError.style.display = 'block';
+        showError('משהו השתבש, נסה שוב');
         submitBtn.disabled = false;
         submitBtn.textContent = 'שלח פרטים ←';
       }
+    });
+
+    // Clear field error on input
+    ['name', 'phone', 'email'].forEach(id => {
+      document.getElementById(id).addEventListener('input', function () {
+        setFieldError(id, false);
+        formError.style.display = 'none';
+      });
     });
   </script>
 </body>
