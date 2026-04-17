@@ -476,8 +476,8 @@
         </div>
 
         <div class="form-group">
-          <label for="email">כתובת מייל <span style="font-weight:400;opacity:0.6">(לאישור בדוא"ל)</span></label>
-          <input type="email" id="email" name="_replyto" placeholder="your@email.com" />
+          <label for="email">כתובת מייל</label>
+          <input type="email" id="email" name="_replyto" required placeholder="your@email.com" />
         </div>
 
         <div class="form-group">
@@ -560,9 +560,9 @@
         setFieldError('phone', true);
         showError('מספר הנייד אינו תקין — יש להזין 10 ספרות המתחילות ב-05 (לדוגמה: 0521234567)');
         valid = false;
-      } else if (email && !validateEmail(email)) {
+      } else if (!email || !validateEmail(email)) {
         setFieldError('email', true);
-        showError('כתובת המייל אינה תקינה — יש להזין כתובת בפורמט name@example.com');
+        showError(!email ? 'נא להזין כתובת מייל' : 'כתובת המייל אינה תקינה — יש להזין כתובת בפורמט name@example.com');
         valid = false;
       }
 
