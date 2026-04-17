@@ -63,6 +63,15 @@
       margin: 0 -16px;
     }
 
+    /* ── LOGO ── */
+    .hero-logo {
+      display: block;
+      width: 140px;
+      height: auto;
+      margin: 0 auto 20px;
+      object-fit: contain;
+    }
+
     /* ── HERO ── */
     .hero {
       padding: 40px 0 36px;
@@ -198,6 +207,7 @@
 
     input[type="text"],
     input[type="tel"],
+    input[type="email"],
     select,
     textarea {
       width: 100%;
@@ -218,6 +228,7 @@
 
     input[type="text"]:focus,
     input[type="tel"]:focus,
+    input[type="email"]:focus,
     select:focus,
     textarea:focus {
       border-color: var(--accent);
@@ -273,15 +284,41 @@
       cursor: not-allowed;
     }
 
+    /* ── FORM WARM TAGLINE ── */
+    .form-tagline {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: -14px;
+      margin-bottom: 24px;
+      line-height: 1.55;
+    }
+
     /* ── FORM STATUS MESSAGES ── */
     .form-success {
       display: none;
       text-align: center;
-      padding: 28px 0 8px;
-      font-size: 1.15rem;
-      font-weight: 600;
+      padding: 32px 0 8px;
+      line-height: 1.7;
+    }
+
+    .form-success .success-icon {
+      font-size: 2.4rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .form-success .success-title {
+      font-size: 1.25rem;
+      font-weight: 700;
       color: var(--green);
-      line-height: 1.5;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-success .success-body {
+      font-size: 0.97rem;
+      color: var(--muted);
+      display: block;
     }
 
     .form-error {
@@ -347,6 +384,7 @@
 
     <!-- ── HERO ── -->
     <section class="hero">
+      <img src="./logo.png" alt="לוגו תבשילי אמא" class="hero-logo" />
       <span class="badge">משרה פתוחה</span>
       <h1>תבשילי אמא</h1>
       <p class="subtitle">עובד/ת פס + ערב — מבשרת ציון</p>
@@ -400,7 +438,7 @@
           <span class="cond-label">ניהול עצמאי בהמשך</span>
         </div>
         <div class="condition-card">
-          <span class="cond-value">סביבה חמה</span>
+          <span class="cond-value">סביבה רותחת</span>
           <span class="cond-label">משפחתית ותומכת</span>
         </div>
       </div>
@@ -411,6 +449,7 @@
     <!-- ── FORM ── -->
     <section class="form-section">
       <h2 class="section-title">רוצה להצטרף?</h2>
+      <p class="form-tagline">שמחים שהגעת עד לכאן 🤍 רק כמה פרטים ואנחנו חוזרים אליך בהקדם.</p>
 
       <form id="application-form" action="https://formspree.io/f/xkokrnoq" method="POST" novalidate>
         <input type="hidden" name="_subject" value="מועמד/ת חדש/ה — תבשילי אמא" />
@@ -437,6 +476,11 @@
         </div>
 
         <div class="form-group">
+          <label for="email">כתובת מייל <span style="font-weight:400;opacity:0.6">(לאישור בדוא"ל)</span></label>
+          <input type="email" id="email" name="_replyto" placeholder="your@email.com" />
+        </div>
+
+        <div class="form-group">
           <label for="about">ספר/י לנו קצת <span style="font-weight:400;opacity:0.6">(לא חובה)</span></label>
           <textarea id="about" name="about" placeholder="משפט-שניים מי אתה/את..."></textarea>
         </div>
@@ -445,7 +489,11 @@
         <div class="form-error" id="form-error">משהו השתבש, נסה שוב</div>
       </form>
 
-      <div class="form-success" id="form-success">תודה! נחזור אליך בהקדם 🙏</div>
+      <div class="form-success" id="form-success">
+        <span class="success-icon">🙏</span>
+        <span class="success-title">קיבלנו! תודה רבה.</span>
+        <span class="success-body">שמחים שפנית אלינו — נחזור אליך בהקדם האפשרי.<br/>בינתיים תדע/י שאתה/את כבר חלק מהמשפחה שלנו 🤍</span>
+      </div>
     </section>
 
     <div class="divider"></div>
@@ -459,7 +507,7 @@
         </svg>
         שאלות? כתבו לנו
       </a>
-      <p class="footer-copy">© תבשילי אמא</p>
+      <p class="footer-copy">© זכויות יוצרים של תבשילי אמא</p>
     </footer>
 
   </div>
